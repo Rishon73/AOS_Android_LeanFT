@@ -1,0 +1,19 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<!-- TestNG Documentation: http://testng.org/doc/documentation-main.html -->
+<!-- Change "false" to "tests", "methods", "classes" or "instances" for running in parallel. See more details in the TestNG documentation. -->
+<suite name="LeanFTSuite" parallel="false" verbose="2">
+  <test name="LeanFtTest">
+
+    <!--parameter name="param" value="value" /-->
+
+    <classes>
+      <class name="com.mf.LeanFtTest">
+        <methods>
+          <include name="test"/>
+          <!-- <exclude name=".*MethodsToExclude.*"/> -->
+        </methods>
+      </class>
+    </classes>
+  </test>
+</suite>
