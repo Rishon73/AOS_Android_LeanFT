@@ -1,1 +1,19 @@
-.idea
+# Shahar
+#--------------
+RunResults/
+Runs/
+out/
+.idea/
+target/
+workspace.xml
+**/.idea/libraries/
+**/KP-find-facility-Maven/.idea/
+/bin
+/releases
+/maven
+/build/
+/repository/
+/.settings
+/test-output/
+/img
+/dependencies
