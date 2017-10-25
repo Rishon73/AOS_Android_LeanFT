@@ -1,6 +1,6 @@
 # AOS_Android_UFTPro
 
-UFTPro (LeanFT) script with TestNG framework. Created with Eclipse.
+UFTPro (LeanFT) script with TestNG framework.
 
 For parallel executions use the @Test annotaion:
 
