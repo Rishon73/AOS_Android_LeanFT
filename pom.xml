@@ -37,6 +37,12 @@
             <artifactId>verifications</artifactId>
             <version>14.1.0</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.mf</groupId>
+            <artifactId>MCUtilities</artifactId>
+            <version>4.0.0</version>
+        </dependency>
     </dependencies>
 
     <repositories>
