@@ -7,20 +7,17 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import com.hp.lft.sdk.*;
 import com.hp.lft.sdk.mobile.*;
-import com.hp.lft.verifications.*;
 
 import unittesting.*;
 
-import java.util.Random;
-
 public class LeanFtTest extends UnitTestClassBase {
     private int counter = 0;
-    private String[] names = {"Shahar", "Shahar2"};
+    private String[] names = {"sshiff", "Shahar2"};
     private String[] passwords = {"5954194bd5c6399c6cd6ceb9978eb34043372b53e941331", "5954194bd5c6399c6cd6ceb9978eb34043372b53e941331"};
-    private boolean INSTALL_APP = true;
     private String OS_TYPE = "Android";
-    private boolean HIGHLIGHT = true;
     private String currentDevice;
+    private MCUtils mcutils;
+    private AppModelAOS_Android appModel;
 
     @BeforeClass
     public void beforeClass() throws Exception {
@@ -32,6 +29,10 @@ public class LeanFtTest extends UnitTestClassBase {
 
     @BeforeMethod
     public void beforeMethod() throws Exception {
+        mcutils = new MCUtils();
+        mcutils.INSTALL_APP = false;
+        mcutils.HIGHLIGHT = true;
+        mcutils.APP_IDENTIFIER = "com.Advantage.aShopping";
     }
 
     @AfterMethod
@@ -45,192 +46,103 @@ public class LeanFtTest extends UnitTestClassBase {
         try {
             DeviceDescription description = new DeviceDescription();
             description.setOsType(OS_TYPE);
-            //description.setName("Nexus 7");
+            //description.setName("SM-N910C");
             //description.setModel("Sony");
-            device = MobileLab.lockDevice(description);
 
+            mcutils.lockDevice(description, DeviceSource.MOBILE_CENTER);
+            //device = MobileLab.lockDevice(description);
 
-            ApplicationDescription appDescription = new ApplicationDescription.Builder()
-                    .identifier("com.Advantage.aShopping").build();
-            Application app = device.describe(Application.class, appDescription);
+            mcutils.setApp();
+            device = mcutils.device;
 
-            currentDevice = "\"" + device.getName() + "\", Model:" + device.getModel() + ", OS=" + device.getOSType() + ", Version=" + device.getOSVersion();
+            currentDevice = "Allocated device: \"" + device.getName() + "\" (" + device.getId() + "), Model :"
+                    + device.getModel() + ", OS: " + device.getOSType() + " version: " + device.getOSVersion()
+                    + ", manufacturer: " + device.getManufacturer();
 
-            System.out.println("Device in use is " + currentDevice
-                    + "\nApp in use: \"" + app.getName() + "\", v" + app.getVersion() + "\n***************************\n"
-            );
+            mcutils.logMessages (currentDevice + ". App in use: \"" + mcutils.app.getName() + "\" v" + mcutils.app.getVersion(), LOG_LEVEL.INFO);
 
-            if (INSTALL_APP) {
-                app.install();
-                windowSync(1500);
-                initAppAfterInstall(device);
-            } else
-                app.restart();
+            if (mcutils.INSTALL_APP)
+                mcutils.app.install();
+            else
+                mcutils.app.restart();
 
-            windowSync(1000);
+            appModel = new AppModelAOS_Android(mcutils.device);
 
-            // open menu
-            System.out.println("[INFO] open menu");
-            openMenu(device);
-
-            // log out if still logged in
-            System.out.println("[INFO] check if I'm logged");
-            if (device.describe(Application.class, new ApplicationDescription.Builder()
-                    .identifier("com.Advantage.aShopping").packaged(true).build()).describe(Label.class, new LabelDescription.Builder()
-                    .text("SIGN OUT").className("Label").resourceId("textViewMenuSignOut").mobileCenterIndex(10).build()).exists()) {
-                System.out.println("[INFO] Still logged in... signing out");
-                signOut(device);
-                openMenu(device);
+            openMenu();
+            // log in/out management
+            mcutils.logMessages("Check if I'm logged, if not, sign me in", LOG_LEVEL.INFO);
+            if (appModel.AdvantageShoppingApplication().SIGNOUTLabel().exists(5)) {     // is anyone signed in?
+                if (appModel.AdvantageShoppingApplication().LoggedInUserNameLabel().getText().compareTo(names[counter]) != 0) {    // is current user signed in?
+                    signOut();
+                    signIn();
+                }
+                else {      // need to close the menu to continue with the script
+                    if (mcutils.HIGHLIGHT)
+                        appModel.AdvantageShoppingApplication().HOMELabel().highlight();
+                    appModel.AdvantageShoppingApplication().HOMELabel().tap();
+                }
             }
+            else        // no one is logged it - let's sign in
+                signIn();
 
-            // start Login
-            System.out.println("[INFO] start logging in");
-            if (HIGHLIGHT)
-                device.describe(Application.class, new ApplicationDescription.Builder()
-                        .identifier("com.Advantage.aShopping").packaged(true).build()).describe(Label.class, new LabelDescription.Builder()
-                        .text("LOGIN").className("Label").resourceId("textViewMenuUser").mobileCenterIndex(9).build()).highlight();
-            device.describe(Application.class, new ApplicationDescription.Builder()
-                    .identifier("com.Advantage.aShopping").packaged(true).build()).describe(Label.class, new LabelDescription.Builder()
-                    .text("LOGIN").className("Label").resourceId("textViewMenuUser").mobileCenterIndex(9).build()).tap();
+            // select Tablets
+            mcutils.logMessages("Select tablets", LOG_LEVEL.INFO);
+            if (mcutils.HIGHLIGHT)
+                appModel.AdvantageShoppingApplication().TABLETSLabel().highlight();
+            appModel.AdvantageShoppingApplication().TABLETSLabel().tap();
 
-            // user name
-            System.out.println("[INFO] Logging is as " + names[counter]);
-            if (HIGHLIGHT)
-                device.describe(Application.class, new ApplicationDescription.Builder()
-                        .identifier("com.Advantage.aShopping").packaged(true).build()).describe(EditField.class, new EditFieldDescription.Builder()
-                        .className("Input").mobileCenterIndex(0).build()).highlight();
-            device.describe(Application.class, new ApplicationDescription.Builder()
-                    .identifier("com.Advantage.aShopping").packaged(true).build()).describe(EditField.class, new EditFieldDescription.Builder()
-                    .className("Input").mobileCenterIndex(0).build()).setText(names[counter]);
-
-            // password
-            System.out.println("[INFO] encrypted password is " + passwords[counter]);
-            if (HIGHLIGHT)
-                device.describe(Application.class, new ApplicationDescription.Builder()
-                        .identifier("com.Advantage.aShopping").packaged(true).build()).describe(EditField.class, new EditFieldDescription.Builder()
-                        .className("Input").mobileCenterIndex(1).build()).highlight();
-            device.describe(Application.class, new ApplicationDescription.Builder()
-                    .identifier("com.Advantage.aShopping").packaged(true).build()).describe(EditField.class, new EditFieldDescription.Builder()
-                    .className("Input").mobileCenterIndex(1).build()).setSecure(passwords[counter++]);
-
-            // log-in
-            System.out.println("[INFO] Click 'LOGIN'");
-            if (HIGHLIGHT)
-                device.describe(Application.class, new ApplicationDescription.Builder()
-                        .identifier("com.Advantage.aShopping").packaged(true).build()).describe(Button.class, new ButtonDescription.Builder()
-                        .text("LOGIN").className("Button").resourceId("buttonLogin").mobileCenterIndex(0).build()).highlight();
-
-            device.describe(Application.class, new ApplicationDescription.Builder()
-                    .identifier("com.Advantage.aShopping").packaged(true).build()).describe(Button.class, new ButtonDescription.Builder()
-                    .text("LOGIN").className("Button").resourceId("buttonLogin").mobileCenterIndex(0).build()).tap();
-            // end login
-
-            // select laptops
-            System.out.println("[INFO] select laptops");
-            if (HIGHLIGHT)
-                device.describe(Application.class, new ApplicationDescription.Builder()
-                        .identifier("com.Advantage.aShopping").packaged(true).build()).describe(Label.class, new LabelDescription.Builder()
-                        .text("LAPTOPS").className("Label").resourceId("textViewCategory").mobileCenterIndex(2).build()).highlight();
-            device.describe(Application.class, new ApplicationDescription.Builder()
-                    .identifier("com.Advantage.aShopping").packaged(true).build()).describe(Label.class, new LabelDescription.Builder()
-                    .text("LAPTOPS").className("Label").resourceId("textViewCategory").mobileCenterIndex(2).build()).tap();
-
-            // pick a laptop
-            System.out.println("[INFO] pick a laptop");
-            if (HIGHLIGHT)
-                device.describe(Application.class, new ApplicationDescription.Builder()
-                        .identifier("com.Advantage.aShopping").packaged(true).build()).describe(UiObject.class, new UiObjectDescription.Builder()
-                        .className("ImageView").container("Table[0][2][0]").resourceId("imageViewProduct").mobileCenterIndex(0).build()).highlight();
-            device.describe(Application.class, new ApplicationDescription.Builder()
-                    .identifier("com.Advantage.aShopping").packaged(true).build()).describe(UiObject.class, new UiObjectDescription.Builder()
-                    .className("ImageView").container("Table[0][2][0]").resourceId("imageViewProduct").mobileCenterIndex(0).build()).tap();
+            windowSync(2000);
+            // pick a tablet
+            mcutils.logMessages("Pick a tablet", LOG_LEVEL.INFO);
+            if (mcutils.HIGHLIGHT)
+                appModel.AdvantageShoppingApplication().ImageViewProductUiObject().highlight();
+            appModel.AdvantageShoppingApplication().ImageViewProductUiObject().tap();
 
             // add to cart
-            System.out.println("[INFO] click 'Add To Cart'");
-            if (HIGHLIGHT)
-                device.describe(Application.class, new ApplicationDescription.Builder()
-                        .identifier("com.Advantage.aShopping").packaged(true).build()).describe(Button.class, new ButtonDescription.Builder()
-                        .text("ADD TO CART").className("Button").resourceId("buttonProductAddToCart").mobileCenterIndex(0).build()).highlight();
-            device.describe(Application.class, new ApplicationDescription.Builder()
-                    .identifier("com.Advantage.aShopping").packaged(true).build()).describe(Button.class, new ButtonDescription.Builder()
-                    .text("ADD TO CART").className("Button").resourceId("buttonProductAddToCart").mobileCenterIndex(0).build()).tap();
+            mcutils.logMessages("Click 'Add To Cart'", LOG_LEVEL.INFO);
+            if (mcutils.HIGHLIGHT)
+                appModel.AdvantageShoppingApplication().ADDTOCARTButton().highlight();
+            appModel.AdvantageShoppingApplication().ADDTOCARTButton().tap();
 
+            windowSync(2000);
             // go to cart
-            System.out.println("[INFO] go back");
-            if (HIGHLIGHT)
-                device.describe(Application.class, new ApplicationDescription.Builder()
-                        .identifier("com.Advantage.aShopping").packaged(true).build()).describe(UiObject.class, new UiObjectDescription.Builder()
-                        .className("ImageView").resourceId("imageViewBack").mobileCenterIndex(1).build()).highlight();
-            device.describe(Application.class, new ApplicationDescription.Builder()
-                    .identifier("com.Advantage.aShopping").packaged(true).build()).describe(UiObject.class, new UiObjectDescription.Builder()
-                    .className("ImageView").resourceId("imageViewBack").mobileCenterIndex(1).build()).tap();
-
-            System.out.println("[INFO] open menu");
-            openMenu(device);
-
-            System.out.println("[INFO] click 'Cart'");
-            if (HIGHLIGHT)
-                device.describe(Application.class, new ApplicationDescription.Builder()
-                        .identifier("com.Advantage.aShopping").packaged(true).build()).describe(Label.class, new LabelDescription.Builder()
-                        .text("CART").className("Label").resourceId("textViewMenuCart").mobileCenterIndex(34).build()).highlight();
-            device.describe(Application.class, new ApplicationDescription.Builder()
-                    .identifier("com.Advantage.aShopping").packaged(true).build()).describe(Label.class, new LabelDescription.Builder()
-                    .text("CART").className("Label").resourceId("textViewMenuCart").mobileCenterIndex(34).build()).tap();
+            mcutils.logMessages("Click cart icon", LOG_LEVEL.INFO);
+            if (mcutils.HIGHLIGHT)
+                appModel.AdvantageShoppingApplication().CartAccessUiObject().highlight();
+            appModel.AdvantageShoppingApplication().CartAccessUiObject().tap();
 
             // check out
-            try {
-                System.out.println("[INFO] click 'Checkout' Pay $...");
-                if (HIGHLIGHT)
-                    device.describe(Application.class, new ApplicationDescription.Builder()
-                            .identifier("com.Advantage.aShopping").packaged(true).build()).describe(Button.class, new ButtonDescription.Builder()
-                            .text("CHECKOUT (PAY $849.99)").className("Button").resourceId("buttonCheckOut").mobileCenterIndex(0).build()).highlight();
-                device.describe(Application.class, new ApplicationDescription.Builder()
-                        .identifier("com.Advantage.aShopping").packaged(true).build()).describe(Button.class, new ButtonDescription.Builder()
-                        .text("CHECKOUT (PAY $849.99)").className("Button").resourceId("buttonCheckOut").mobileCenterIndex(0).build()).tap();
-            } catch (ReplayObjectNotFoundException err) {
-                System.out.println("[ERR] (ReplayObjectNotFoundException) click 'click 'Checkout' Pay $...: " + err.getMessage() + "\nDevice is: " + currentDevice);
-            }
-            /*
+            mcutils.logMessages("Click 'Checkout' Pay $...", LOG_LEVEL.INFO);
+            if (mcutils.HIGHLIGHT)
+                appModel.AdvantageShoppingApplication().CHECKOUTPAYButton().highlight();
+            appModel.AdvantageShoppingApplication().CHECKOUTPAYButton().tap();
+
+            windowSync(5000);
 
             // Pay
-            try {
-                System.out.println("[INFO] click 'Pay Now'");
-                if (HIGHLIGHT)
-                    device.describe(Application.class, new ApplicationDescription.Builder()
-                            .identifier("com.Advantage.aShopping").packaged(true).build()).describe(Button.class, new ButtonDescription.Builder()
-                            .text("PAY NOW").className("Button").resourceId("buttonPayNow").mobileCenterIndex(0).build()).highlight();
-                device.describe(Application.class, new ApplicationDescription.Builder()
-                        .identifier("com.Advantage.aShopping").packaged(true).build()).describe(Button.class, new ButtonDescription.Builder()
-                        .text("PAY NOW").className("Button").resourceId("buttonPayNow").mobileCenterIndex(0).build()).tap();
-            } catch (ReplayObjectNotFoundException err) {
-                System.out.println("[ERR] (ReplayObjectNotFoundException) click 'Pay Now': " + err.getMessage() + "\nDevice is: " + currentDevice);
-            } catch (GeneralLeanFtException err2) {
-                System.out.println("[ERR] (GeneralLeanFtException) click 'Pay Now': " + err2.getMessage() + "\nDevice is: " + currentDevice);
-            }
+            mcutils.logMessages("Click 'Pay Now'", LOG_LEVEL.INFO);
+            if (mcutils.HIGHLIGHT)
+                appModel.AdvantageShoppingApplication().PAYNOWButton().highlight();
+            appModel.AdvantageShoppingApplication().PAYNOWButton().tap();
 
-            windowSync(1000);
+            mcutils.logMessages("Click the 'X' in Order Payment dialog", LOG_LEVEL.INFO);
+            if (mcutils.HIGHLIGHT)
+                appModel.AdvantageShoppingApplication().ImageViewCloseDialogUiObject().highlight();
+            appModel.AdvantageShoppingApplication().ImageViewCloseDialogUiObject().tap();
 
-            try {
-                System.out.println("[INFO] Click the 'X' in Order Payment dialog");
-                if (HIGHLIGHT)
-                    device.describe(Application.class, new ApplicationDescription.Builder()
-                            .identifier("com.Advantage.aShopping").packaged(true).build()).describe(UiObject.class, new UiObjectDescription.Builder()
-                            .className("ImageView").resourceId("imageViewCloseDialog").mobileCenterIndex(1).build()).highlight();
-                device.describe(Application.class, new ApplicationDescription.Builder()
-                        .identifier("com.Advantage.aShopping").packaged(true).build()).describe(UiObject.class, new UiObjectDescription.Builder()
-                        .className("ImageView").resourceId("imageViewCloseDialog").mobileCenterIndex(1).build()).tap();
-            } catch (ReplayObjectNotFoundException err) {
-                System.out.println("[ERR] Click the 'X' in Order Payment dialog: " + err.getMessage() + "\nDevice is: " + currentDevice);
-            }
+            signOut();
 
-            //signOut(device);
-            */
+            mcutils.logMessages("======================= Test completed successfully =======================", LOG_LEVEL.INFO);
+
         } catch (InterruptedException iex) {
-            System.out.println("[ERR] Interrupted exception: " + iex.getMessage());
-        }
-        catch (GeneralLeanFtException err) {
-            System.out.println("[ERR] failed allocating device: " + err.getMessage());
-            return;
+            mcutils.logMessages("Interrupted exception: " + iex.getMessage() + "\nCurrent device: " + currentDevice, LOG_LEVEL.ERROR);
+        } catch (GeneralLeanFtException err) {
+            mcutils.logMessages("LeanFT/UFTPro exception: " + err.getMessage() + "\nCurrent device: " + currentDevice, LOG_LEVEL.ERROR);
+            //Assert.fail("(assertion)");
+        } catch (Exception ex) {
+            mcutils.logMessages ("General error: " + ex.getMessage() + "\nCurrent device: " + currentDevice, LOG_LEVEL.ERROR);
+        } finally {
+            mcutils.logMessages ("Exit test() \nCurrent device: " + currentDevice, LOG_LEVEL.INFO);
         }
     }
 
@@ -242,69 +154,51 @@ public class LeanFtTest extends UnitTestClassBase {
         Thread.sleep(milliseconds);
     }
 
-    private void initAppAfterInstall(Device device) throws GeneralLeanFtException {
-        try {
-            // Set correct Server
-            if (HIGHLIGHT)
-                device.describe(Application.class, new ApplicationDescription.Builder()
-                        .identifier("com.Advantage.aShopping").packaged(true).build()).describe(Button.class, new ButtonDescription.Builder()
-                        .text("OK").className("Button").resourceId("button1").mobileCenterIndex(2).build()).highlight();
-            device.describe(Application.class, new ApplicationDescription.Builder()
-                    .identifier("com.Advantage.aShopping").packaged(true).build()).describe(Button.class, new ButtonDescription.Builder()
-                    .text("OK").className("Button").resourceId("button1").mobileCenterIndex(2).build()).tap();
-
-            if (HIGHLIGHT)
-                device.describe(Application.class, new ApplicationDescription.Builder()
-                        .identifier("com.Advantage.aShopping").packaged(true).build()).describe(EditField.class, new EditFieldDescription.Builder()
-                        .className("Input").resourceId("editTextServer").mobileCenterIndex(1).build()).highlight();
-            device.describe(Application.class, new ApplicationDescription.Builder()
-                    .identifier("com.Advantage.aShopping").packaged(true).build()).describe(EditField.class, new EditFieldDescription.Builder()
-                    .className("Input").resourceId("editTextServer").mobileCenterIndex(1).build()).setText("www.advantageonlineshopping.com");
-
-            if (HIGHLIGHT)
-                device.describe(Application.class, new ApplicationDescription.Builder()
-                        .identifier("com.Advantage.aShopping").packaged(true).build()).describe(Button.class, new ButtonDescription.Builder()
-                        .text("Connect").className("Button").resourceId("buttonConnect").mobileCenterIndex(0).build()).highlight();
-            device.describe(Application.class, new ApplicationDescription.Builder()
-                    .identifier("com.Advantage.aShopping").packaged(true).build()).describe(Button.class, new ButtonDescription.Builder()
-                    .text("Connect").className("Button").resourceId("buttonConnect").mobileCenterIndex(0).build()).tap();
-
-            if (HIGHLIGHT)
-                device.describe(Application.class, new ApplicationDescription.Builder()
-                        .identifier("com.Advantage.aShopping").packaged(true).build()).describe(Button.class, new ButtonDescription.Builder()
-                        .text("OK").className("Button").resourceId("button1").mobileCenterIndex(2).build()).highlight();
-            device.describe(Application.class, new ApplicationDescription.Builder()
-                    .identifier("com.Advantage.aShopping").packaged(true).build()).describe(Button.class, new ButtonDescription.Builder()
-                    .text("OK").className("Button").resourceId("button1").mobileCenterIndex(2).build()).tap();
-        } catch (GeneralLeanFtException err) {
-            System.out.println("[ERR] error in initAppAfterInstall(): " + err.getMessage() + "\nDevice is: " + currentDevice);
-        }
+    private void signOut() throws GeneralLeanFtException {
+        mcutils.logMessages("Enter signing out method", LOG_LEVEL.INFO);
+        openMenu();
+        appModel.AdvantageShoppingApplication().SIGNOUTLabel().tap();
+        appModel.AdvantageShoppingApplication().YESButton().tap();
+        mcutils.logMessages("Exit signing out method", LOG_LEVEL.INFO);
     }
 
-    private void signOut(Device device) {
-        try {
-            device.describe(Application.class, new ApplicationDescription.Builder()
-                    .identifier("com.Advantage.aShopping").packaged(true).build()).describe(Label.class, new LabelDescription.Builder()
-                    .text("SIGN OUT").className("Label").resourceId("textViewMenuSignOut").mobileCenterIndex(10).build()).tap();
-            device.describe(Application.class, new ApplicationDescription.Builder()
-                    .identifier("com.Advantage.aShopping").packaged(true).build()).describe(Button.class, new ButtonDescription.Builder()
-                    .text("YES").className("Button").resourceId("button2").mobileCenterIndex(1).build()).tap();
-        } catch (GeneralLeanFtException err) {
-            System.out.println("[ERR] error in signOut(): " + err.getMessage() + "\nDevice is: " + currentDevice);
-        }
+    private void signIn() throws GeneralLeanFtException {
+        mcutils.logMessages ("Enter signIn() method", LOG_LEVEL.INFO);
+
+        // open menu
+        openMenu();
+
+        // start Login
+        mcutils.logMessages("Start logging in", LOG_LEVEL.INFO);
+        if (mcutils.HIGHLIGHT)
+            appModel.AdvantageShoppingApplication().LOGINLabel().highlight();
+        appModel.AdvantageShoppingApplication().LOGINLabel().tap();
+
+        // user name
+        mcutils.logMessages("User name is as " + names[counter], LOG_LEVEL.INFO);
+        if (mcutils.HIGHLIGHT)
+            appModel.AdvantageShoppingApplication().USERNAMELabel().highlight();
+        appModel.AdvantageShoppingApplication().MobileEditEditUserNameField().setText(names[counter]);
+
+        // password
+        mcutils.logMessages("Encrypted password is " + passwords[counter], LOG_LEVEL.INFO);
+        if (mcutils.HIGHLIGHT)
+            appModel.AdvantageShoppingApplication().PASSWORDLabel().highlight();
+        appModel.AdvantageShoppingApplication().MobileEditEditPasswordField().setSecure(passwords[counter++]);
+
+        // log-in
+        mcutils.logMessages("Click 'LOGIN'", LOG_LEVEL.INFO);
+        if (mcutils.HIGHLIGHT)
+            appModel.AdvantageShoppingApplication().LOGINButton().highlight();
+        appModel.AdvantageShoppingApplication().LOGINButton().tap();
+
+        mcutils.logMessages ("Exit signIn() method", LOG_LEVEL.INFO);
     }
 
-    private void openMenu(Device device) {
-        try {
-            if (HIGHLIGHT)
-                device.describe(Application.class, new ApplicationDescription.Builder()
-                        .identifier("com.Advantage.aShopping").packaged(true).build()).describe(UiObject.class, new UiObjectDescription.Builder()
-                        .className("ImageView").resourceId("imageViewMenu").mobileCenterIndex(0).build()).highlight();
-            device.describe(Application.class, new ApplicationDescription.Builder()
-                    .identifier("com.Advantage.aShopping").packaged(true).build()).describe(UiObject.class, new UiObjectDescription.Builder()
-                    .className("ImageView").resourceId("imageViewMenu").mobileCenterIndex(0).build()).tap();
-        } catch (GeneralLeanFtException err) {
-            System.out.println("[ERR] error in openMenu(): " + err.getMessage() + "\nDevice is: " + currentDevice);
-        }
+    private void openMenu() throws GeneralLeanFtException{
+        mcutils.logMessages("Open menu", LOG_LEVEL.INFO);
+        if (mcutils.HIGHLIGHT)
+            appModel.AdvantageShoppingApplication().ImageViewHamburger().highlight();
+        appModel.AdvantageShoppingApplication().ImageViewHamburger().tap();
     }
 }
