@@ -9,108 +9,83 @@
             <description></description>
             <identification>
                 <properties>
-                    <property name="Identifier" type="string" isRegExp="false">com.Advantage.iShopping</property>
-                    <property name="IsPackaged" type="boolean" isRegExp="false">true</property>
+                    <property name="Identifier" type="string" isRegExp="false">com.Advantage.aShopping</property>
+                    <property name="IsPackaged" type="boolean" isRegExp="false">false</property>
                 </properties>
             </identification>
             <children>
                 <object type="Label" technology="Mobile">
-                    <name>SPEAKERS</name>
-                    <codeName>SPEAKERSLabel</codeName>
+                    <name>TABLETS</name>
+                    <codeName>TABLETSLabel</codeName>
                     <description></description>
                     <identification>
                         <properties>
-                            <property name="AccessibilityId" type="string" isRegExp="false">SPEAKERS</property>
                             <property name="ClassName" type="string" isRegExp="false">Label</property>
-                            <property name="Container" type="string" isRegExp="false">Table[0][3][0]</property>
-                            <property name="MobileCenterIndex" type="int" isRegExp="false">0</property>
-                            <property name="Text" type="string" isRegExp="false">SPEAKERS</property>
-                        </properties>
-                    </identification>
-                </object>
-                <object type="UiObject" technology="Mobile">
-                    <name>MobileObject</name>
-                    <codeName>MobileObjectUiObject</codeName>
-                    <description></description>
-                    <identification>
-                        <properties>
-                            <property name="ClassName" type="string" isRegExp="false">ImageView</property>
-                            <property name="Container" type="string" isRegExp="false">CollectionView[0][3][0]</property>
-                            <property name="MobileCenterIndex" type="int" isRegExp="false">0</property>
-                        </properties>
-                    </identification>
-                </object>
-                <object type="Button" technology="Mobile">
-                    <name>ColorButtonLabel</name>
-                    <codeName>ColorButtonLabelButton</codeName>
-                    <description></description>
-                    <identification>
-                        <properties>
-                            <property name="AccessibilityId" type="string" isRegExp="false">ColorButtonLabel</property>
-                            <property name="ClassName" type="string" isRegExp="false">Button</property>
                             <property name="MobileCenterIndex" type="int" isRegExp="false">2</property>
+                            <property name="ResourceId" type="string" isRegExp="false">com.Advantage.aShopping:id/textViewCategory</property>
+                            <property name="Text" type="string" isRegExp="false">TABLETS</property>
                         </properties>
                     </identification>
                 </object>
-                <object type="UiObject" technology="Mobile">
-                    <name>MobileObject1</name>
-                    <codeName>MobileObjectUiObject1</codeName>
+                <object type="Label" technology="Mobile">
+                    <name>LAPTOPS</name>
+                    <codeName>LAPTOPSLabel</codeName>
                     <description></description>
                     <identification>
                         <properties>
-                            <property name="ClassName" type="string" isRegExp="false">View</property>
-                            <property name="Container" type="string" isRegExp="false">CollectionView[0][1][0]</property>
-                            <property name="MobileCenterIndex" type="int" isRegExp="false">2</property>
-                        </properties>
-                    </identification>
-                </object>
-                <object type="UiObject" technology="Mobile">
-                    <name>MobileObject2</name>
-                    <codeName>MobileObjectUiObject2</codeName>
-                    <description></description>
-                    <identification>
-                        <properties>
-                            <property name="ClassName" type="string" isRegExp="false">ImageView</property>
-                            <property name="MobileCenterIndex" type="int" isRegExp="false">8</property>
-                        </properties>
-                    </identification>
-                </object>
-                <object type="Button" technology="Mobile">
-                    <name>Ok</name>
-                    <codeName>OkButton</codeName>
-                    <description></description>
-                    <identification>
-                        <properties>
-                            <property name="AccessibilityId" type="string" isRegExp="false">Ok</property>
-                            <property name="ClassName" type="string" isRegExp="false">Button</property>
-                            <property name="MobileCenterIndex" type="int" isRegExp="false">0</property>
-                            <property name="Text" type="string" isRegExp="false">Ok</property>
-                        </properties>
-                    </identification>
-                </object>
-                <object type="EditField" technology="Mobile">
-                    <name>USER NAME</name>
-                    <codeName>USERNAMEEditField</codeName>
-                    <description></description>
-                    <identification>
-                        <properties>
-                            <property name="AccessibilityId" type="string" isRegExp="false">userNameLabel</property>
-                            <property name="ClassName" type="string" isRegExp="false">Input</property>
-                            <property name="Hint" type="string" isRegExp="false">USER NAME</property>
-                            <property name="MobileCenterIndex" type="int" isRegExp="false">0</property>
-                        </properties>
-                    </identification>
-                </object>
-                <object type="EditField" technology="Mobile">
-                    <name>PASSWORD</name>
-                    <codeName>PASSWORDEditField</codeName>
-                    <description></description>
-                    <identification>
-                        <properties>
-                            <property name="AccessibilityId" type="string" isRegExp="false">passwordLabel</property>
-                            <property name="ClassName" type="string" isRegExp="false">Input</property>
-                            <property name="Hint" type="string" isRegExp="false">PASSWORD</property>
+                            <property name="ClassName" type="string" isRegExp="false">Label</property>
                             <property name="MobileCenterIndex" type="int" isRegExp="false">1</property>
+                            <property name="ResourceId" type="string" isRegExp="false">com.Advantage.aShopping:id/textViewCategory</property>
+                            <property name="Text" type="string" isRegExp="false">LAPTOPS</property>
+                        </properties>
+                    </identification>
+                </object>
+                <object type="UiObject" technology="Mobile">
+                    <name>imageViewMenu</name>
+                    <codeName>ImageViewHamburger</codeName>
+                    <description></description>
+                    <identification>
+                        <properties>
+                            <property name="ClassName" type="string" isRegExp="false">ImageView</property>
+                            <property name="MobileCenterIndex" type="int" isRegExp="false">0</property>
+                            <property name="ResourceId" type="string" isRegExp="false">com.Advantage.aShopping:id/imageViewMenu</property>
+                        </properties>
+                    </identification>
+                </object>
+                <object type="Label" technology="Mobile">
+                    <name>LOGIN</name>
+                    <codeName>LOGINLabel</codeName>
+                    <description></description>
+                    <identification>
+                        <properties>
+                            <property name="ClassName" type="string" isRegExp="false">Label</property>
+                            <property name="MobileCenterIndex" type="int" isRegExp="false">6</property>
+                            <property name="ResourceId" type="string" isRegExp="false">com.Advantage.aShopping:id/textViewMenuUser</property>
+                            <property name="Text" type="string" isRegExp="false">LOGIN</property>
+                        </properties>
+                    </identification>
+                </object>
+                <object type="Label" technology="Mobile">
+                    <name>USER NAME</name>
+                    <codeName>USERNAMELabel</codeName>
+                    <description></description>
+                    <identification>
+                        <properties>
+                            <property name="ClassName" type="string" isRegExp="false">Label</property>
+                            <property name="MobileCenterIndex" type="int" isRegExp="false">3</property>
+                            <property name="Text" type="string" isRegExp="false">USER NAME</property>
+                        </properties>
+                    </identification>
+                </object>
+                <object type="Label" technology="Mobile">
+                    <name>PASSWORD</name>
+                    <codeName>PASSWORDLabel</codeName>
+                    <description></description>
+                    <identification>
+                        <properties>
+                            <property name="ClassName" type="string" isRegExp="false">Label</property>
+                            <property name="MobileCenterIndex" type="int" isRegExp="false">4</property>
+                            <property name="Text" type="string" isRegExp="false">PASSWORD</property>
                         </properties>
                     </identification>
                 </object>
@@ -120,61 +95,47 @@
                     <description></description>
                     <identification>
                         <properties>
-                            <property name="AccessibilityId" type="string" isRegExp="false">LOGIN</property>
                             <property name="ClassName" type="string" isRegExp="false">Button</property>
-                            <property name="MobileCenterIndex" type="int" isRegExp="false">1</property>
+                            <property name="MobileCenterIndex" type="int" isRegExp="false">0</property>
+                            <property name="ResourceId" type="string" isRegExp="false">com.Advantage.aShopping:id/buttonLogin</property>
                             <property name="Text" type="string" isRegExp="false">LOGIN</property>
                         </properties>
                     </identification>
                 </object>
-                <object type="Button" technology="Mobile">
-                    <name>Back</name>
-                    <codeName>BackButton</codeName>
+                <object type="UiObject" technology="Mobile">
+                    <name>imageViewProduct</name>
+                    <codeName>ImageViewProductUiObject</codeName>
                     <description></description>
                     <identification>
                         <properties>
-                            <property name="AccessibilityId" type="string" isRegExp="false">Back</property>
-                            <property name="ClassName" type="string" isRegExp="false">Button</property>
-                            <property name="MobileCenterIndex" type="int" isRegExp="false">5</property>
+                            <property name="ClassName" type="string" isRegExp="false">ImageView</property>
+                            <property name="MobileCenterIndex" type="int" isRegExp="false">4</property>
+                            <property name="ResourceId" type="string" isRegExp="false">com.Advantage.aShopping:id/imageViewProduct</property>
                         </properties>
                     </identification>
                 </object>
                 <object type="Button" technology="Mobile">
-                    <name>Menu</name>
-                    <codeName>MenuButton</codeName>
+                    <name>ADD TO CART</name>
+                    <codeName>ADDTOCARTButton</codeName>
                     <description></description>
                     <identification>
                         <properties>
-                            <property name="AccessibilityId" type="string" isRegExp="false">Menu</property>
                             <property name="ClassName" type="string" isRegExp="false">Button</property>
-                            <property name="MobileCenterIndex" type="int" isRegExp="false">3</property>
-                        </properties>
-                    </identification>
-                </object>
-                <object type="Label" technology="Mobile">
-                    <name>CART</name>
-                    <codeName>CARTLabel</codeName>
-                    <description></description>
-                    <identification>
-                        <properties>
-                            <property name="AccessibilityId" type="string" isRegExp="false">CART</property>
-                            <property name="ClassName" type="string" isRegExp="false">Label</property>
-                            <property name="Container" type="string" isRegExp="false">Table[0][8][0]</property>
                             <property name="MobileCenterIndex" type="int" isRegExp="false">0</property>
-                            <property name="Text" type="string" isRegExp="false">CART</property>
+                            <property name="ResourceId" type="string" isRegExp="false">com.Advantage.aShopping:id/buttonProductAddToCart</property>
+                            <property name="Text" type="string" isRegExp="false">ADD TO CART</property>
                         </properties>
                     </identification>
                 </object>
                 <object type="Button" technology="Mobile">
-                    <name>CHECKOUT (PAY 169.99)</name>
-                    <codeName>CHECKOUTPAY16999Button</codeName>
+                    <name>CHECKOUT (PAY $1,279.00)</name>
+                    <codeName>CHECKOUTPAYButton</codeName>
                     <description></description>
                     <identification>
                         <properties>
-                            <property name="AccessibilityId" type="string" isRegExp="false">CHECKOUT (PAY 169.99)</property>
                             <property name="ClassName" type="string" isRegExp="false">Button</property>
-                            <property name="MobileCenterIndex" type="int" isRegExp="false">2</property>
-                            <property name="Text" type="string" isRegExp="false">CHECKOUT (PAY 169.99)</property>
+                            <property name="MobileCenterIndex" type="int" isRegExp="false">0</property>
+                            <property name="ResourceId" type="string" isRegExp="false">com.Advantage.aShopping:id/buttonCheckOut</property>
                         </properties>
                     </identification>
                 </object>
@@ -184,47 +145,96 @@
                     <description></description>
                     <identification>
                         <properties>
-                            <property name="AccessibilityId" type="string" isRegExp="false">PAY NOW</property>
                             <property name="ClassName" type="string" isRegExp="false">Button</property>
                             <property name="MobileCenterIndex" type="int" isRegExp="false">0</property>
+                            <property name="ResourceId" type="string" isRegExp="false">com.Advantage.aShopping:id/buttonPayNow</property>
                             <property name="Text" type="string" isRegExp="false">PAY NOW</property>
                         </properties>
                     </identification>
                 </object>
-                <object type="Button" technology="Mobile">
-                    <name>Menu1</name>
-                    <codeName>MenuButton1</codeName>
-                    <description></description>
-                    <identification>
-                        <properties>
-                            <property name="AccessibilityId" type="string" isRegExp="false">Menu</property>
-                            <property name="ClassName" type="string" isRegExp="false">Button</property>
-                            <property name="MobileCenterIndex" type="int" isRegExp="false">2</property>
-                        </properties>
-                    </identification>
-                </object>
                 <object type="UiObject" technology="Mobile">
-                    <name>MobileObject3</name>
-                    <codeName>MobileObjectUiObject3</codeName>
+                    <name>imageViewCloseDialog</name>
+                    <codeName>ImageViewCloseDialogUiObject</codeName>
                     <description></description>
                     <identification>
                         <properties>
                             <property name="ClassName" type="string" isRegExp="false">ImageView</property>
-                            <property name="Container" type="string" isRegExp="false">Table[0][0][0]</property>
                             <property name="MobileCenterIndex" type="int" isRegExp="false">0</property>
+                            <property name="ResourceId" type="string" isRegExp="false">com.Advantage.aShopping:id/imageViewCloseDialog</property>
+                        </properties>
+                    </identification>
+                </object>
+                <object type="Label" technology="Mobile">
+                    <name>SIGN OUT</name>
+                    <codeName>SIGNOUTLabel</codeName>
+                    <description></description>
+                    <identification>
+                        <properties>
+                            <property name="ClassName" type="string" isRegExp="false">Label</property>
+                            <property name="MobileCenterIndex" type="int" isRegExp="false">7</property>
+                            <property name="ResourceId" type="string" isRegExp="false">com.Advantage.aShopping:id/textViewMenuSignOut</property>
+                            <property name="Text" type="string" isRegExp="false">SIGN OUT</property>
                         </properties>
                     </identification>
                 </object>
                 <object type="Button" technology="Mobile">
-                    <name>Yes</name>
-                    <codeName>YesButton</codeName>
+                    <name>YES</name>
+                    <codeName>YESButton</codeName>
                     <description></description>
                     <identification>
                         <properties>
-                            <property name="AccessibilityId" type="string" isRegExp="false">Yes</property>
                             <property name="ClassName" type="string" isRegExp="false">Button</property>
                             <property name="MobileCenterIndex" type="int" isRegExp="false">0</property>
-                            <property name="Text" type="string" isRegExp="false">Yes</property>
+                            <property name="ResourceId" type="string" isRegExp="false">android:id/button2</property>
+                            <property name="Text" type="string" isRegExp="false">YES</property>
+                        </properties>
+                    </identification>
+                </object>
+                <object type="EditField" technology="Mobile">
+                    <name>MobileEditUserName</name>
+                    <codeName>MobileEditEditUserNameField</codeName>
+                    <description></description>
+                    <identification>
+                        <properties>
+                            <property name="ClassName" type="string" isRegExp="false">Input</property>
+                            <property name="MobileCenterIndex" type="int" isRegExp="false">0</property>
+                        </properties>
+                    </identification>
+                </object>
+                <object type="EditField" technology="Mobile">
+                    <name>MobileEditPassword</name>
+                    <codeName>MobileEditEditPasswordField</codeName>
+                    <description></description>
+                    <identification>
+                        <properties>
+                            <property name="ClassName" type="string" isRegExp="false">Input</property>
+                            <property name="MobileCenterIndex" type="int" isRegExp="false">1</property>
+                        </properties>
+                    </identification>
+                </object>
+                <object type="UiObject" technology="Mobile">
+                    <name>Cart access</name>
+                    <codeName>CartAccessUiObject</codeName>
+                    <description></description>
+                    <identification>
+                        <properties>
+                            <property name="AccessibilityId" type="string" isRegExp="false">Cart access</property>
+                            <property name="ClassName" type="string" isRegExp="false">ImageView</property>
+                            <property name="MobileCenterIndex" type="int" isRegExp="false">1</property>
+                            <property name="ResourceId" type="string" isRegExp="false">com.Advantage.aShopping:id/imageViewCart</property>
+                        </properties>
+                    </identification>
+                </object>
+                <object type="Label" technology="Mobile">
+                    <name>Shahar2</name>
+                    <codeName>Shahar2Label</codeName>
+                    <description></description>
+                    <identification>
+                        <properties>
+                            <property name="ClassName" type="string" isRegExp="false">Label</property>
+                            <property name="MobileCenterIndex" type="int" isRegExp="false">6</property>
+                            <property name="ResourceId" type="string" isRegExp="false">com.Advantage.aShopping:id/textViewMenuUser</property>
+                            <property name="Text" type="string" isRegExp="false">Shahar2</property>
                         </properties>
                     </identification>
                 </object>
