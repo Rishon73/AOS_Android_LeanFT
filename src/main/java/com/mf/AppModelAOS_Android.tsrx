@@ -226,15 +226,40 @@
                     </identification>
                 </object>
                 <object type="Label" technology="Mobile">
-                    <name>Shahar2</name>
-                    <codeName>Shahar2Label</codeName>
+                    <name>UserNameLabel</name>
+                    <codeName>LoggedInUserNameLabel</codeName>
                     <description></description>
                     <identification>
                         <properties>
                             <property name="ClassName" type="string" isRegExp="false">Label</property>
                             <property name="MobileCenterIndex" type="int" isRegExp="false">6</property>
                             <property name="ResourceId" type="string" isRegExp="false">com.Advantage.aShopping:id/textViewMenuUser</property>
-                            <property name="Text" type="string" isRegExp="false">Shahar2</property>
+                        </properties>
+                    </identification>
+                </object>
+                <object type="Label" technology="Mobile">
+                    <name>TABLETSFromMenu</name>
+                    <codeName>TABLETSLabelFromMenu</codeName>
+                    <description></description>
+                    <identification>
+                        <properties>
+                            <property name="ClassName" type="string" isRegExp="false">Label</property>
+                            <property name="MobileCenterIndex" type="int" isRegExp="false">12</property>
+                            <property name="ResourceId" type="string" isRegExp="false">com.Advantage.aShopping:id/textViewMenuTablets</property>
+                            <property name="Text" type="string" isRegExp="false">TABLETS</property>
+                        </properties>
+                    </identification>
+                </object>
+                <object type="Label" technology="Mobile">
+                    <name>HOME</name>
+                    <codeName>HOMELabel</codeName>
+                    <description></description>
+                    <identification>
+                        <properties>
+                            <property name="ClassName" type="string" isRegExp="false">Label</property>
+                            <property name="MobileCenterIndex" type="int" isRegExp="false">8</property>
+                            <property name="ResourceId" type="string" isRegExp="false">com.Advantage.aShopping:id/textViewMenuHome</property>
+                            <property name="Text" type="string" isRegExp="false">HOME</property>
                         </properties>
                     </identification>
                 </object>
