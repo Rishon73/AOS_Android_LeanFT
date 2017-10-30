@@ -17,3 +17,5 @@ workspace.xml
 /test-output/
 /img
 /dependencies
+
+appmodels/com/mf/**
