@@ -16,4 +16,4 @@ https://github.com/Rishon73/MCUtils.git
 This git repository has a ready to use jar file under _MCUtils/out/artifacts/MCUtils_jar/ folder_.
 To include it in your local maven repository, run this command in terminal:
 
-_mvn install:install-file -Dfile=<location of MCUtils.jar> -DgroupId=com.mf -DartifactId=MCUtilities -Dversion=4.0.0 -Dpackaging=jar_
+_mvn install:install-file -Dfile=\<location of MCUtils.jar\> -DgroupId=com.mf -DartifactId=MCUtilities -Dversion=4.0.0 -Dpackaging=jar_
