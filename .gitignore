@@ -20,3 +20,5 @@ workspace.xml
 appmodels/com/mf/**
 
 *.iml
+
+.idea/appmodels/com/mf/AppModelAOS_Android.java
