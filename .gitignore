@@ -3,7 +3,6 @@
 RunResults/
 Runs/
 out/
-.idea/
 target/
 workspace.xml
 **/.idea/libraries/
