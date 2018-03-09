@@ -18,3 +18,5 @@ workspace.xml
 /dependencies
 
 appmodels/com/mf/**
+
+*.iml
