@@ -7,6 +7,10 @@
     <name>LeanFT TestNG Test</name>
     <description>LeanFT TestNG Test</description>
 
+    <properties>
+        <lft.ver>14.50.0</lft.ver>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.testng</groupId>
@@ -17,25 +21,25 @@
         <dependency>
             <groupId>com.hp.lft</groupId>
             <artifactId>sdk</artifactId>
-            <version>14.1.0</version>
+            <version>${lft.ver}</version>
         </dependency>
 
         <dependency>
             <groupId>com.hp.lft</groupId>
             <artifactId>report</artifactId>
-            <version>14.1.0</version>
+            <version>${lft.ver}</version>
         </dependency>
 
         <dependency>
             <groupId>com.hp.lft</groupId>
             <artifactId>unittesting</artifactId>
-            <version>14.1.0</version>
+            <version>${lft.ver}</version>
         </dependency>
 
         <dependency>
             <groupId>com.hp.lft</groupId>
             <artifactId>verifications</artifactId>
-            <version>14.1.0</version>
+            <version>${lft.ver}</version>
         </dependency>
 
         <dependency>
