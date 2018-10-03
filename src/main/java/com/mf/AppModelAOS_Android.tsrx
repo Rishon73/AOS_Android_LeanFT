@@ -2,6 +2,7 @@
 <applicationModel>
     <name>Application Model</name>
     <className>AppModelAOS_Android</className>
+    <description>newer xxxx</description>
     <objects>
         <object type="Application" technology="Mobile">
             <name>Advantage Shopping</name>
