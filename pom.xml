@@ -44,8 +44,8 @@
 
         <dependency>
             <groupId>com.mf</groupId>
-            <artifactId>MCUtilities</artifactId>
-            <version>4.0.0</version>
+            <artifactId>utils</artifactId>
+            <version>${lft.ver}</version>
         </dependency>
     </dependencies>
 
@@ -68,7 +68,6 @@
                     <target>1.7</target>
                 </configuration>
             </plugin>
-
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
@@ -85,6 +84,19 @@
                                 <source>appmodels</source>
                             </sources>
                         </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.hpe.lft</groupId>
+                <artifactId>appmodel-generator-mojo</artifactId>
+                <version>14.50.0</version>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>
