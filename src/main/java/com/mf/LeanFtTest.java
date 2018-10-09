@@ -17,7 +17,7 @@ public class LeanFtTest extends UnitTestClassBase {
     private String[] passwords = {"460d4691b2f164b933e1476fa1", "5954194bd5c6399c6cd6ceb9978eb34043372b53e941331"};
     private String OS_TYPE = "Android";
     private String currentDevice;
-    private LabDevice mcUtils;
+    private MobileLabUtils mcUtils;
     private AppModelAOS_Android appModel;
 
     @BeforeClass
@@ -30,7 +30,7 @@ public class LeanFtTest extends UnitTestClassBase {
 
     @BeforeMethod
     public void beforeMethod() throws Exception {
-        mcUtils = new LabDevice();
+        mcUtils = new MobileLabUtils();
         mcUtils.setInstallApp(false);
         mcUtils.setHighlight(true);
         mcUtils.setAppIdentifier("com.Advantage.aShopping");
@@ -51,7 +51,7 @@ public class LeanFtTest extends UnitTestClassBase {
             //description.setName("SM-N910C");
             //description.setModel("Sony");
 
-            mcUtils.lockDevice(description, LabDevice.LabType.SRF);
+            mcUtils.lockDevice(description, MobileLabUtils.LabType.SRF);
             //device = MobileLab.lockDevice(description);
 
             mcUtils.setApp();
