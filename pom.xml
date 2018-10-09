@@ -9,6 +9,7 @@
 
     <properties>
         <lft.ver>14.50.0</lft.ver>
+        <utils.ver>1.3</utils.ver>
     </properties>
 
     <dependencies>
@@ -45,7 +46,7 @@
         <dependency>
             <groupId>com.mf</groupId>
             <artifactId>utils</artifactId>
-            <version>${lft.ver}</version>
+            <version>${utils.ver}-${lft.ver}</version>
         </dependency>
     </dependencies>
 
