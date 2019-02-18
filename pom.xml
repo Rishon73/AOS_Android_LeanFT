@@ -8,8 +8,8 @@
     <description>LeanFT TestNG Test</description>
 
     <properties>
-        <lft.ver>14.50.0</lft.ver>
-        <utils.ver>1.3</utils.ver>
+        <lft.ver>14.51.0</lft.ver>
+        <utils.ver>1.4</utils.ver>
     </properties>
 
     <dependencies>
@@ -45,7 +45,7 @@
 
         <dependency>
             <groupId>com.mf</groupId>
-            <artifactId>utils</artifactId>
+            <artifactId>MobileUtilities</artifactId>
             <version>${utils.ver}-${lft.ver}</version>
         </dependency>
     </dependencies>
