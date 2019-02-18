@@ -2,7 +2,7 @@
 
 <!-- TestNG Documentation: http://testng.org/doc/documentation-main.html -->
 <!-- Change "false" to "tests", "methods", "classes" or "instances" for running in parallel. See more details in the TestNG documentation. -->
-<suite name="LeanFTSuite" parallel="false" verbose="2">
+<suite name="LeanFTSuite" parallel="true" verbose="2">
   <test name="LeanFtTest">
 
     <!--parameter name="param" value="value" /-->
@@ -10,7 +10,7 @@
     <classes>
       <class name="com.mf.LeanFtTest">
         <methods>
-          <include name="test"/>
+          <include name="testNativeAOS"/>
           <!-- <exclude name=".*MethodsToExclude.*"/> -->
         </methods>
       </class>
